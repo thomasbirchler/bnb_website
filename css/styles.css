@@ -777,8 +777,7 @@ body {
 .calendar-note { font-size:0.7rem; color:#777; margin-top:12px; }
 
 /* ===================== SLIDESHOW FINAL CONSOLIDATED OVERRIDES ===================== */
-/* Ensure first image always visible as fallback (mobile JS race conditions) */
-.slideshow img:first-child { opacity: 1; }
+
 /* Guarantee large variant height across breakpoints (remove reliance on !important earlier) */
 .slideshow-large { height: 350px; }
 .slideshow-large img { height: 350px; }
