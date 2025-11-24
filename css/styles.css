@@ -282,17 +282,6 @@ body {
     .location-single-column iframe { height:360px !important; }
   }
 
-.slideshow img.active {
-  opacity: 1;
-}
-.slideshow img:first-child { /* Fallback: ensure first image visible if JS fails */
-  opacity: 1;
-}
-
-
-
-
-
 
 /* SLIDESHOW CONTAINER */
 .slideshow {
@@ -303,7 +292,7 @@ body {
   border-radius: 8px;
 }
 
-/* IMAGES OVERLAPPING */
+/* SLIDESHOW IMAGES */
 .slideshow img {
   position: absolute;
   top: 0;
@@ -313,13 +302,15 @@ body {
   object-fit: cover;
   opacity: 0;
   transition: opacity 1s ease-in-out;
+  pointer-events: none;
 }
 
+/* VISIBLE IMAGE */
 .slideshow img.active {
   opacity: 1;
+  pointer-events: auto;
+  cursor: zoom-in;
 }
-.slideshow img { pointer-events: none; }
-.slideshow img.active { pointer-events: auto; cursor: zoom-in; }
 
 /* ARROWS */
 .slide-arrow {
