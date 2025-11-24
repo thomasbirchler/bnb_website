@@ -1,0 +1,779 @@
+/* GLOBAL FONT */
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  color: #333;
+  margin: 0;
+  padding: 0;
+}
+/* Footer layout spacing relies on body having no bottom margin */
+
+/* HEADER (fixed so it always stays visible while scrolling) */
+/* Consolidated duplicate .site-header definitions and switched from sticky to fixed */
+.site-header {
+  background: #ffffff;
+  border-bottom: 1px solid #e5e5e5;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  z-index: 1000;
+  padding: 15px 0 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.06); /* subtle elevation */
+}
+
+/* EVERYTHING IN THE HEADER IS CENTERED */
+.header-center {
+  text-align: center;
+}
+
+/* LOGO */
+.logo img {
+  width: 330px;        /* slightly bigger */
+  height: auto;
+  display: block;
+  margin: 0 auto 15px; /* spacing below logo */
+}
+
+/* NAVIGATION */
+.main-nav {
+  display: flex;
+  justify-content: center; /* CENTER MENU */
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+/* BASIC LINK STYLE */
+.main-nav a {
+  position: relative;
+  display: inline-block;
+  padding: 8px 12px;
+  color: #333;
+  text-decoration: none;
+  font-family: lato, sans-serif;
+  z-index: 1;
+}
+
+/* HOVER + ACTIVE BACKGROUND (same as before) */
+.main-nav a::before {
+  content: "";
+  position: absolute;
+  top: -6px;
+  bottom: -6px;
+  left: -10px;
+  right: -10px;
+  background: transparent;
+  border-radius: 10px;
+  z-index: -1;
+  transition: background-color 0.2s ease;
+}
+
+.main-nav a:hover::before,
+.main-nav a.active::before {
+  background: #e5e5e5;
+}
+
+
+
+/* RESPONSIVE FOR MOBILE */
+@media (max-width: 768px) {
+  .nav-container {
+    flex-direction: column;
+  }
+
+  .main-nav {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 10px;
+  }
+}
+
+
+
+
+
+
+.section {
+  /* Reduced vertical padding to tighten space between section titles across pages */
+  padding: 40px 0;
+}
+
+.container {
+  width: 90%;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* Zwei Spalten nebeneinander */
+.two-column {
+  display: flex;
+  gap: 40px;
+  align-items: flex-start;
+}
+
+/* Spalte Text / Spalte Bild/Map */
+.col-text,
+.col-media {
+  flex: 1;
+}
+
+/* Bilder schön skalieren */
+.col-media img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 8px;
+}
+
+/* Leicht andere Hintergrundfarbe für Abwechslung */
+.section-alt {
+  background: #f7f7f7;
+}
+
+/* Mobile: untereinander statt nebeneinander */
+@media (max-width: 768px) {
+  .two-column {
+    flex-direction: column;
+  }
+  /* Bigger slideshow only on the welcome section */
+  .slideshow-large {
+    height: 350px !important;  /* or any size you want */
+  }
+  .slideshow-large img {
+    height: 350px !important;
+    object-fit: cover;
+  }
+}
+
+
+
+
+
+/* GRID FOR 3 COLUMNS */
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+  margin-top: 30px;
+}
+
+/* ROOM SUMMARY CONTAINER */
+.room-summary h3 {
+  font-size: 1.4rem;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.room-summary p {
+  line-height: 1.5;
+  color: #555;
+}
+
+/* IMAGE BLOCK */
+.room-summary-images {
+  margin: 15px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.room-summary-images img {
+  width: 100%;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+/* PRICE BLOCK */
+.price-summary {
+  margin-top: 10px;
+  background: #f7f7f7;
+  padding: 12px 16px;
+  border-radius: 8px;
+}
+
+.price-summary p {
+  margin: 4px 0;
+  color: #333;
+}
+
+.price-summary .cleaning {
+  font-size: 0.9rem;
+  color: #777;
+}
+
+/* MOBILE RESPONSIVE */
+@media (max-width: 768px) {
+  .grid-3 {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+
+
+
+/* SLIDESHOW BASE STYLES */
+.slideshow {
+  position: relative;
+  width: 100%;
+  height: 250px;            /* Adjust to your preferred height */
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+.slideshow img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 250px;             /* Same as container */
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+}
+
+.airbnb-embed-wrapper {
+  display: flex;
+  justify-content: center;
+  margin: 0 0 1.5rem;
+  width: 100%;
+}
+
+.airbnb-embed-wrapper .airbnb-embed-frame {
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.reviews-single-column {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.reviews-single-column p { max-width: 650px; margin-left: auto; margin-right: auto; }
+
+@media (max-width: 600px) {
+  .reviews-single-column .airbnb-embed-frame { width: 100% !important; height: 320px !important; }
+}
+
+.availability-single-column {
+  max-width: 850px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.availability-single-column p { max-width: 650px; margin-left: auto; margin-right: auto; }
+.availability-single-column .calendar-wrapper { margin-top: 1rem; }
+
+@media (max-width: 600px){
+  .availability-single-column iframe { width:100% !important; }
+}
+
+  .location-single-column { text-align:center; max-width:900px; margin:0 auto; }
+  .location-single-column p { max-width:750px; margin:0 auto 1.2rem; line-height:1.6; }
+  .location-single-column .map-wrapper { margin-top:1rem; }
+  @media (max-width:700px){
+    .location-single-column iframe { height:360px !important; }
+  }
+
+.slideshow img.active {
+  opacity: 1;
+}
+
+
+
+
+
+
+/* SLIDESHOW CONTAINER */
+.slideshow {
+  position: relative;
+  width: 100%;
+  height: 250px;
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+/* IMAGES OVERLAPPING */
+.slideshow img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+}
+
+.slideshow img.active {
+  opacity: 1;
+}
+.slideshow img { pointer-events: none; }
+.slideshow img.active { pointer-events: auto; cursor: zoom-in; }
+
+/* ARROWS */
+.slide-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.7);
+  border: none;
+  padding: 8px 12px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 18px;
+  color: #333;
+  transition: background-color 0.3s ease;
+  z-index: 10;
+}
+
+.slide-arrow:hover {
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.slide-arrow.left {
+  left: 10px;
+}
+
+.slide-arrow.right {
+  right: 10px;
+}
+
+/* Bigger slideshow only in the welcome section */
+.slideshow-large {
+  height: 350px !important;  /* or any size you want */
+}
+
+.slideshow-large img {
+  height: 350px !important;
+  object-fit: cover;
+}
+
+
+
+
+.room-features {
+  list-style: none;
+  padding: 0;
+  margin-top: 15px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px 20px;
+  font-size: 1rem;
+}
+
+.room-features li {
+  position: relative;
+  padding-left: 22px;
+}
+
+.room-features li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: #4a4a4a;
+  font-weight: bold;
+}
+
+
+
+/* Airbnb Review Image */
+.review-image {
+  width: 100%;
+  border-radius: 10px;
+  object-fit: cover;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  transition: transform 0.2s ease;
+}
+
+.review-image:hover {
+  transform: scale(1.02);
+}
+
+/* Button primary style (falls noch nicht definiert) */
+.btn-primary {
+  display: inline-block;
+  background: #b62d2d;   /* leichte Airbnb-Anmutung */
+  color: white;
+  padding: 10px 18px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background-color 0.2s ease;
+}
+
+.btn-primary:hover {
+  background: #972323;
+}
+
+
+
+.calendar-wrapper {
+  width: 100%;
+  height: 500px;
+}
+
+@media (max-width: 768px) {
+  .calendar-wrapper {
+    height: 350px;
+  }
+}
+
+.calendar-wrapper iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+
+
+#calendar_section
+ .col-text {
+  flex: 0.40;
+}
+
+#calendar_section .col-media {
+  flex: 0.60;
+}
+
+
+.center-btn {
+  text-align: center;
+  margin-top: 15px;
+}
+
+/* Make "Mehr Infos" buttons span the full room column width on the homepage cards */
+.room-summary .center-btn .btn-primary {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Full column width reservation/inquiry buttons on room detail pages */
+.btn-column {
+  display: block;
+  width: 100%;
+  max-width: 400px;
+  box-sizing: border-box;
+  padding: 12px 24px; /* slightly larger for prominence */
+}
+
+
+
+
+
+.welcome-hero {
+  text-align: center;
+  padding: 80px 0 60px;
+}
+
+.welcome-hero h1 {
+  font-size: 2.4rem;
+  margin-bottom: 15px;
+  color: #333;
+  letter-spacing: 0.5px;
+}
+
+.welcome-subtitle {
+  font-size: 1.2rem;
+  color: #555;
+  max-width: 650px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+
+
+
+.section h2 {
+  font-size: 2rem;
+  /* Slightly reduce space below titles */
+  margin-bottom: 18px;
+  text-align: center;   /* oder center, wenn du magst */
+}
+
+
+
+.btn-primary {
+  display: inline-block;
+  background: #b62d2d;
+  color: white;
+  padding: 10px 18px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background-color 0.2s ease;
+}
+
+.btn-primary:hover {
+  background: #972323;
+}
+
+/* Slightly wider CTA variant for the homepage top button */
+.btn-wide {
+  padding: 12px 28px; /* a bit wider than default */
+  min-width: 260px;   /* ensures a visually wider button */
+  text-align: center;
+}
+
+
+
+
+
+
+.info-list {
+  list-style: none;
+  padding: 0;
+  margin-top: 15px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px 0;
+}
+
+.info-list li {
+  position: relative;
+  padding-left: 22px;
+  line-height: 1.5;
+  color: #555;
+}
+
+.info-list li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: #b62d2d; /* kleine Akzentfarbe */
+  font-weight: bold;
+}
+
+
+
+
+
+.info-list {
+  list-style: none;
+  padding: 0;
+  margin: 15px 0 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px 0;
+}
+
+.info-list li {
+  position: relative;
+  padding-left: 22px;
+  line-height: 1.5;
+  color: #555;
+}
+
+.info-list li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: #b62d2d;
+  font-weight: bold;
+}
+
+/* Box im Stil der Preisboxen */
+.info-summary {
+  margin-top: 20px;
+  background: #f7f7f7;
+  padding: 14px 18px;
+  border-radius: 8px;
+}
+
+.info-summary p {
+  margin: 4px 0;
+}
+
+/* Frühstück leicht akzentuieren */
+.breakfast-summary p:first-child {
+  font-weight: bold;
+}
+
+
+
+
+
+/* Body top padding to avoid content being hidden beneath fixed header */
+body {
+  /* Estimate header height (logo + two nav rows). Adjust if necessary */
+  padding-top: 180px; /* tweak this value if layout shifts */
+}
+
+/* Responsive: reduce header height on small screens to reclaim space */
+@media (max-width: 600px) {
+  body { padding-top: 150px; }
+}
+
+/* ===================== FOOTER ===================== */
+.site-footer {
+  background: #333;
+  color: #eee;
+  margin-top: 60px;
+  font-size: 0.9rem;
+}
+
+.site-footer a { color: #eee; text-decoration: none; }
+.site-footer a:hover { text-decoration: underline; }
+
+.footer-inner { padding: 50px 0 30px; }
+
+.footer-columns {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 40px;
+}
+
+.footer-col h3, .footer-col h4 { margin-top: 0; color: #fff; font-weight: 600; }
+.footer-tagline { margin: 8px 0 12px; line-height: 1.4; }
+.footer-address address { font-style: normal; line-height: 1.5; }
+
+.footer-col ul { list-style: none; padding: 0; margin: 0; }
+.footer-col ul li { margin: 6px 0; }
+
+.footer-contact-list li a { display: inline-block; }
+
+.footer-social { margin-top: 12px; display: flex; gap: 12px; }
+.social-icon { background:#555; padding:6px 10px; border-radius:4px; font-size:0.75rem; }
+.social-icon:hover { background:#666; }
+
+.footer-bottom { background:#262626; text-align:center; padding:14px 0; }
+.footer-bottom p { margin:0; font-size:0.75rem; letter-spacing:0.5px; }
+
+@media (max-width: 600px) {
+  .footer-inner { padding: 40px 0 24px; }
+  .footer-columns { gap: 30px; }
+}
+
+/* LOGO oben mittig */
+.header-top img {
+  width: 280px;
+  height: auto;
+  display: block;
+  margin: 0 auto 18px;
+}
+
+/* BEIDE NAV-REIHEN */
+.nav-row {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 28px;
+  margin-bottom: 10px;
+}
+
+/* LINKS */
+.nav-row a {
+  position: relative;
+  padding: 8px 12px;
+  color: #333;
+  text-decoration: none;
+  font-family: Lato, sans-serif;
+  font-size: 1rem;
+}
+
+/* HOVER + ACTIVE = GRAUER HINTERGRUND */
+.nav-row a::before {
+  content: "";
+  position: absolute;
+  top: -6px;
+  bottom: -6px;
+  left: -10px;
+  right: -10px;
+  background: transparent;
+  border-radius: 10px;
+  z-index: -1;
+  transition: background-color 0.2s ease;
+}
+
+.nav-row a:hover::before,
+.nav-row a.active::before {
+  background: #e5e5e5;
+}
+
+/* MOBILE */
+@media (max-width: 600px) {
+  .header-top img {
+    width: 55%;
+  }
+  .nav-row {
+    gap: 14px;
+  }
+}
+/* ===================== LIGHTBOX ===================== */
+.lightbox-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000; /* above fixed header */
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+.lightbox-overlay.active { opacity: 1; pointer-events: auto; }
+.lightbox-content { position: relative; max-width: 90%; max-height: 90%; }
+.lightbox-content img { max-width: 100%; max-height: 100%; border-radius: 8px; box-shadow: 0 6px 18px rgba(0,0,0,0.4); }
+.lightbox-close, .lightbox-prev, .lightbox-next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255,255,255,0.7);
+  border: none;
+  padding: 10px 14px;
+  cursor: pointer;
+  font-size: 20px;
+  border-radius: 50%;
+  line-height: 1;
+}
+.lightbox-close { top: 20px; right: 20px; transform: none; }
+.lightbox-prev { left: -60px; }
+.lightbox-next { right: -60px; }
+.lightbox-close:hover, .lightbox-prev:hover, .lightbox-next:hover { background: rgba(255,255,255,0.9); }
+@media (max-width: 700px){
+  .lightbox-prev { left: 10px; }
+  .lightbox-next { right: 10px; }
+}
+/* ===================== FORMS & AVAILABILITY ===================== */
+.form-row { margin-bottom: 14px; display: flex; flex-direction: column; }
+.form-row-inline { display: flex; gap: 18px; }
+.form-row-inline > div { flex: 1; }
+.form-row label { font-weight: 600; margin-bottom: 6px; }
+.form-row input[type=text],
+.form-row input[type=email],
+.form-row input[type=tel],
+.form-row input[type=date],
+.form-row input[type=number],
+.form-row select,
+.form-row textarea { padding: 10px 12px; border:1px solid #ccc; border-radius:6px; font-size:0.95rem; font-family: inherit; }
+.form-row textarea { resize: vertical; }
+.form-actions { display:flex; gap:16px; margin-top:8px; flex-wrap:wrap; }
+.form-note { font-size:0.75rem; color:#666; margin-top:8px; }
+
+.form-status { margin-top:12px; padding:10px 12px; border-radius:6px; font-size:0.85rem; }
+.form-error { background:#ffe5e5; color:#a80000; border:1px solid #ffb3b3; }
+.form-info { background:#e5f0ff; color:#004a99; border:1px solid #b3d1ff; }
+.form-success { background:#e5ffe9; color:#006b1f; border:1px solid #b3ffc2; }
+
+@media (max-width: 700px){
+  .form-row-inline { flex-direction: column; }
+}
+
+.availability-box { margin-top:16px; background:#f7f7f7; padding:14px 16px; border-radius:8px; font-size:0.9rem; line-height:1.4; }
+.availability-loading { background:#fffbe5; }
+.availability-free { background:#e5ffe9; border:1px solid #b3ffc2; }
+.availability-busy { background:#ffe5e5; border:1px solid #ffb3b3; }
+.availability-error { background:#ffe5e5; border:1px solid #ffb3b3; }
+.availability-warning { background:#fff5e5; border:1px solid #ffddaa; }
+.availability-box ul { margin:8px 0 0; padding-left:18px; }
+
+.calendar-embeds h3 { margin-top:30px; margin-bottom:10px; font-size:1.1rem; }
+.calendar-note { font-size:0.7rem; color:#777; margin-top:12px; }

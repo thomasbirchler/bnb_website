@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <title>Reservation / Anfrage - Bed & Breakfast Tulipan</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Kontakt und Reservierungsanfrage für das Bed & Breakfast Tulipan in Einsiedeln." />
+  <link rel="stylesheet" href="/bnb_website/css/styles.css" />
+</head>
+<body>
+  <div id="header"></div>
+  <script>
+    fetch('/bnb_website/header.html')
+      .then(r=>r.text())
+      .then(html => {
+        const h = document.getElementById('header');
+        h.innerHTML = html;
+        // Active link highlight
+        const currentPage = 'reservation.html';
+        document.querySelectorAll('.nav-row a').forEach(a => {
+          const page = a.getAttribute('href').split('/').pop();
+          if(page === currentPage){ a.classList.add('active'); }
+        });
+      });
+  </script>
+
+  <main>
+    <section class="welcome-hero">
+      <div class="container">
+        <h1>Reservation &amp; Anfrage</h1>
+        <p class="welcome-subtitle">Nutzen Sie das Formular für Ihre Buchungsanfrage oder Fragen. Wir melden uns schnellstmöglich.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container two-column">
+        <!-- FORM COLUMN -->
+        <div class="col-text">
+          <h2>Buchungsanfrage</h2>
+          <form id="reservationForm" novalidate>
+            <div class="form-row">
+              <label for="name">Name *</label>
+              <input type="text" id="name" name="name" required />
+            </div>
+            <div class="form-row">
+              <label for="email">E-Mail *</label>
+              <input type="email" id="email" name="email" required />
+            </div>
+            <div class="form-row">
+              <label for="phone">Telefon (optional)</label>
+              <input type="tel" id="phone" name="phone" />
+            </div>
+            <div class="form-row form-row-inline">
+              <div>
+                <label for="arrival">Anreise *</label>
+                <input type="date" id="arrival" name="arrival" required />
+              </div>
+              <div>
+                <label for="departure">Abreise *</label>
+                <input type="date" id="departure" name="departure" required />
+              </div>
+            </div>
+            <div class="form-row">
+              <label for="guests">Anzahl Gäste *</label>
+              <input type="number" id="guests" name="guests" min="1" max="6" required />
+            </div>
+            <div class="form-row">
+              <label for="room">Zimmer *</label>
+              <select id="room" name="room" required>
+                <option value="">Bitte wählen</option>
+                <option value="grande_suite">Grande Suite</option>
+                <option value="cozy_retreat">Cozy Retreat</option>
+                <option value="princess_room">Princess Room</option>
+              </select>
+            </div>
+            <div class="form-row">
+              <label for="message">Nachricht / Besonderheiten</label>
+              <textarea id="message" name="message" rows="5" placeholder="Fragen, spezielle Wünsche, Uhrzeit für Check-in ..."></textarea>
+            </div>
+            <div class="form-actions">
+              <button type="button" class="btn-primary" id="checkAvailabilityBtn">Verfügbarkeit prüfen</button>
+              <button type="submit" class="btn-primary">Anfrage senden</button>
+            </div>
+            <p class="form-note">Mit * gekennzeichnete Felder sind Pflichtfelder.</p>
+            <div id="formStatus" aria-live="polite"></div>
+          </form>
+        </div>
+
+        <!-- AVAILABILITY COLUMN -->
+        <div class="col-media">
+          <h2>Verfügbarkeit</h2>
+          <p>Nutzen Sie die Funktion "Verfügbarkeit prüfen" oder betrachten Sie unten die Kalender. Die Auswahl erfolgt nach der Nacht der Übernachtung.</p>
+          <div id="availabilityResult" class="availability-box"></div>
+
+          <div class="calendar-embeds">
+            <h3>Grande Suite</h3>
+            <iframe src="https://calendar.google.com/calendar/embed?height=600&wkst=2&ctz=Europe%2FZurich&bgcolor=%23ffffff&title=The%20Grande%20Suite&showPrint=0&showTabs=0&showCalendars=0&showTz=0&src=ZHA4cHVxYTZzMDduMzMydGQ4OHVuZWlzdGt0dm51ZHFAaW1wb3J0LmNhbGVuZGFyLmdvb2dsZS5jb20&color=%233F51B5" style="border:solid 1px #777" width="100%" height="300" frameborder="0" scrolling="no"></iframe>
+            <h3>Cozy Retreat</h3>
+            <iframe src="https://calendar.google.com/calendar/embed?height=600&wkst=2&ctz=Europe%2FZurich&bgcolor=%23ffffff&showPrint=0&showTabs=0&showCalendars=0&showTz=0&title=The%20Cozy%20Room&src=a2Q4dmJkMHN0bGJxcDBkN21rdmIxOXM3ZTh1czlvZ3BAaW1wb3J0LmNhbGVuZGFyLmdvb2dsZS5jb20&color=%23D50000" style="border:solid 1px #777" width="100%" height="300" frameborder="0" scrolling="no"></iframe>
+            <h3>Princess Room</h3>
+            <iframe src="https://calendar.google.com/calendar/embed?height=600&wkst=2&ctz=Europe%2FZurich&bgcolor=%23ffffff&title=The%20Princess%20Room&showPrint=0&showTabs=0&showCalendars=0&showTz=0&src=NHUwYjF1amNsMHU5cjA2b3NxdGNkMTQ2ZzBuczRsMTdAaW1wb3J0LmNhbGVuZGFyLmdvb2dsZS5jb20&color=%23B39DDB" style="border:solid 1px #777" width="100%" height="300" frameborder="0" scrolling="no"></iframe>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="footer"></div>
+  <script>
+    fetch('/bnb_website/footer.html')
+      .then(r=>r.text())
+      .then(html => {
+        const f = document.getElementById('footer');
+        f.innerHTML = html;
+        const yearSpan = f.querySelector('.js-current-year');
+        if(yearSpan) yearSpan.textContent = new Date().getFullYear();
+      });
+  </script>
+
+  <script>
+    // --- Availability & Form Logic (ICS based, no API key needed) ---
+    // Provide PUBLIC ICS feed URLs for each room calendar.
+    // How to get ICS URL (Google Calendar): Einstellungen -> Kalender -> "Kalender integrieren" -> Öffentliche Adresse im iCal-Format.
+    const roomIcsMap = {
+      grande_suite: 'https://calendar.google.com/calendar/ical/ZHA4cHVxYTZzMDduMzMydGQ4OHVuZWlzdGt0dm51ZHFAaW1wb3J0LmNhbGVuZGFyLmdvb2dsZS5jb20/public/basic.ics',
+      cozy_retreat: 'https://calendar.google.com/calendar/ical/PUT_COZY_RETREAT_CALENDAR_ID_HERE/public/basic.ics',
+      princess_room: 'https://calendar.google.com/calendar/ical/PUT_PRINCESS_ROOM_CALENDAR_ID_HERE/public/basic.ics'
+    };
+
+    // Simple cache to avoid refetching ICS repeatedly in one session.
+    const icsCache = {}; // { roomKey: { fetchedAt: Date, text: string, events: [] } }
+    const CACHE_TTL_MINUTES = 30;
+
+    function parseICS(icsText){
+      // Very lightweight ICS parser focusing on DTSTART / DTEND / SUMMARY lines
+      const lines = icsText.split(/\r?\n/);
+      const events = [];
+      let current = null;
+      lines.forEach(line => {
+        if(line === 'BEGIN:VEVENT') { current = {}; }
+        else if(line === 'END:VEVENT') {
+          if(current && current.dtstart && current.dtend) {
+            events.push(current); }
+          current = null;
+        } else if(current){
+          if(line.startsWith('DTSTART')){
+            const value = line.split(':').pop().trim();
+            current.dtstart = parseIcsDate(value);
+          } else if(line.startsWith('DTEND')){
+            const value = line.split(':').pop().trim();
+            current.dtend = parseIcsDate(value);
+          } else if(line.startsWith('SUMMARY')){
+            current.summary = line.split(':').slice(1).join(':').trim();
+          }
+        }
+      });
+      return events;
+    }
+
+    function parseIcsDate(raw){
+      // Handles YYYYMMDD or YYYYMMDDTHHMMSSZ
+      if(/^[0-9]{8}$/.test(raw)){
+        // Treat all-day events: start of day local
+        const year = raw.slice(0,4); const month = raw.slice(4,6); const day = raw.slice(6,8);
+        return new Date(`${year}-${month}-${day}T00:00:00`);
+      }
+      // date-time variant
+      const match = raw.match(/([0-9]{4})([0-9]{2})([0-9]{2})T([0-9]{2})([0-9]{2})([0-9]{2})Z?/);
+      if(match){
+        const [_, y,m,d,hh,mm,ss] = match;
+        return new Date(`${y}-${m}-${d}T${hh}:${mm}:${ss}Z`);
+      }
+      // fallback
+      return new Date(raw);
+    }
+
+    function isCacheValid(entry){
+      if(!entry) return false;
+      const ageMin = (Date.now() - entry.fetchedAt)/60000;
+      return ageMin < CACHE_TTL_MINUTES;
+    }
+
+    async function getRoomEvents(room){
+      const cacheEntry = icsCache[room];
+      if(isCacheValid(cacheEntry)) return cacheEntry.events;
+      const icsUrl = roomIcsMap[room];
+      if(!icsUrl) throw new Error('Keine ICS URL hinterlegt');
+      const resp = await fetch(icsUrl);
+      if(!resp.ok) throw new Error('ICS Abruf fehlgeschlagen ('+resp.status+')');
+      const text = await resp.text();
+      const events = parseICS(text);
+      icsCache[room] = { fetchedAt: Date.now(), text, events };
+      return events;
+    }
+
+    function overlaps(arrivalDate, departureDate, eventStart, eventEnd){
+      // Consider nights: event overlaps if it touches any portion of [arrival, departure)
+      // Many all-day events treat DTEND as exclusive; we'll keep logic inclusive of start, exclusive of end.
+      return eventStart < departureDate && eventEnd > arrivalDate;
+    }
+
+    async function checkAvailability(){
+      const arrivalEl = document.getElementById('arrival');
+      const departureEl = document.getElementById('departure');
+      const roomEl = document.getElementById('room');
+      const resultBox = document.getElementById('availabilityResult');
+
+      resultBox.textContent = '';
+
+      const arrival = arrivalEl.value;
+      const departure = departureEl.value;
+      const room = roomEl.value;
+
+      if(!arrival || !departure || !room){
+        resultBox.textContent = 'Bitte zuerst Zimmer sowie An- und Abreisedatum wählen.';
+        resultBox.className = 'availability-box availability-error';
+        return;
+      }
+      if(departure <= arrival){
+        resultBox.textContent = 'Abreisedatum muss nach dem Anreisedatum liegen.';
+        resultBox.className = 'availability-box availability-error';
+        return;
+      }
+
+      const icsUrl = roomIcsMap[room];
+      if(!icsUrl){
+        resultBox.textContent = 'Keine ICS URL für dieses Zimmer hinterlegt.';
+        resultBox.className = 'availability-box availability-error';
+        return;
+      }
+      resultBox.innerHTML = '<p>Prüfe Verfügbarkeit (ICS)...</p>';
+      resultBox.className = 'availability-box availability-loading';
+
+      try {
+        const arrivalDate = new Date(arrival + 'T00:00:00');
+        const departureDate = new Date(departure + 'T00:00:00'); // exclusive end
+        const events = await getRoomEvents(room);
+        const overlapping = events.filter(ev => overlaps(arrivalDate, departureDate, ev.dtstart, ev.dtend));
+        if(overlapping.length === 0){
+          resultBox.innerHTML = '<p>Zimmer ist im gewählten Zeitraum frei.</p>';
+          resultBox.className = 'availability-box availability-free';
+        } else {
+          const listHtml = overlapping.map(ev => {
+            const fmtStart = ev.dtstart.toISOString().split('T')[0];
+            const fmtEnd = ev.dtend.toISOString().split('T')[0];
+            return `<li>${fmtStart} – ${fmtEnd} : ${ev.summary || 'Belegt'}</li>`;
+          }).join('');
+          resultBox.innerHTML = `<p>Zimmer ist belegt oder teilweise belegt:</p><ul>${listHtml}</ul>`;
+          resultBox.className = 'availability-box availability-busy';
+        }
+      } catch(err){
+        resultBox.textContent = 'Fehler bei der ICS Prüfung: ' + err.message;
+        resultBox.className = 'availability-box availability-error';
+      }
+    }
+
+    document.getElementById('checkAvailabilityBtn').addEventListener('click', checkAvailability);
+
+    // --- Form submission (mailto fallback) ---
+    document.getElementById('reservationForm').addEventListener('submit', function(e){
+      e.preventDefault();
+      const status = document.getElementById('formStatus');
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      const arrival = document.getElementById('arrival').value;
+      const departure = document.getElementById('departure').value;
+      const guests = document.getElementById('guests').value;
+      const room = document.getElementById('room').value;
+      const message = document.getElementById('message').value.trim();
+
+      // Basic validation
+      if(!name || !email || !arrival || !departure || !room || !guests){
+        status.textContent = 'Bitte alle Pflichtfelder ausfüllen.';
+        status.className = 'form-status form-error';
+        return;
+      }
+      if(departure <= arrival){
+        status.textContent = 'Abreisedatum muss nach Anreisedatum liegen.';
+        status.className = 'form-status form-error';
+        return;
+      }
+
+      // Build mailto
+      const subject = encodeURIComponent(`Anfrage: ${room} ${arrival} bis ${departure}`);
+      const body = encodeURIComponent(
+        `Name: ${name}\nE-Mail: ${email}\nTelefon: ${phone}\nZimmer: ${room}\nGäste: ${guests}\nAnreise: ${arrival}\nAbreise: ${departure}\nNachricht:\n${message}`
+      );
+
+      const mailtoUrl = `mailto:yvonne.birchler@bnb-tulipan.ch?subject=${subject}&body=${body}`;
+      window.location.href = mailtoUrl;
+      status.textContent = 'E-Mail wird vorbereitet. Falls kein Mail-Client öffnet, bitte manuell senden.';
+      status.className = 'form-status form-info';
+    });
+  </script>
+</body>
+</html>

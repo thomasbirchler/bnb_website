@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cozy Retreat - Bed & Breakfast Tulipan</title>
+  <script src="/bnb_website/js/lightbox.js" defer></script>
+  <link rel="stylesheet" href="/bnb_website/css/styles.css">
+</head>
+<body>
+
+  <!-- Header dynamic -->
+  <div id="header"></div>
+  <script>
+    fetch('/bnb_website/header.html')
+      .then(r=>r.text())
+      .then(html => {
+        const h = document.getElementById('header');
+        h.innerHTML = html;
+        // Mark active link
+        const currentPage = 'cozy_retreat.html';
+        document.querySelectorAll('.nav-row a').forEach(a => {
+          const page = a.getAttribute('href').split('/').pop();
+          if(page === currentPage){ a.classList.add('active'); }
+        });
+      });
+  </script>
+
+  <main>
+
+     <section class="welcome-hero">
+  <div class="container">
+    <h1>The Cozy Retreat</h1>
+    <p class="welcome-subtitle">
+      <strong>Ihr helles, warmes und charmantes Zimmer mit viel Holz und behaglicher Atmosphäre.</strong>
+    </p>
+  </div>
+</section>
+    <!-- Hauptbereich: Cozy Retreat -->
+    <section class="section">
+      <div class="container">
+        
+        <div class="container two-column">
+          <!-- Textspalte -->
+          <div class="col-text">
+            <p>
+                <strong>Ein Zimmer zum Wohlfühlen:</strong> natürliche Materialien, warme Farben und eine ruhige Atmosphäre
+                machen das Cozy Retreat zu einem Ort, an dem man sofort herunterfährt.
+                </p>
+
+                <p>
+                Das <strong>bequeme Doppelbett (1.80 m x 2.00 m)</strong> schenkt erholsamen Schlaf. Das geteilte Bad liegt nur wenige Schritte entfernt.
+                WLAN, Föhn und Stauraum stehen zur Verfügung.
+                </p>
+
+                <p>
+                Die voll ausgestattete Küche können Sie jederzeit verwenden. Morgens servieren wir ein <strong>feines
+                kontinentales Frühstück</strong>.
+                </p>
+
+            <div class="price-summary">
+              <p><strong>CHF 95.-</strong> / Nacht (2 Personen)</p>
+              <p><strong>CHF 80.-</strong> / Nacht (1 Person)</p>
+              <p class="cleaning">+ CHF 30.- Reinigung</p>
+            </div>
+            <div class="center-btn">
+              <a href="/bnb_website/reservation.html" class="btn-primary btn-column">Reservation / Anfrage</a>
+            </div>
+          </div>
+
+          <!-- Bildspalte mit Slideshow -->
+          <div class="col-media">
+            <div class="room-summary-images slideshow">
+              <img src="/bnb_website/images/cr_sleeping1.jpg" alt="Cozy Retreat - Zimmeransicht 1">
+              <img src="/bnb_website/images/cr_sleeping2.jpg" alt="Cozy Retreat - Zimmeransicht 2">
+              <!-- Navigation arrows -->
+              <button class="slide-arrow left">&#10094;</button>
+              <button class="slide-arrow right">&#10095;</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <h2>Ausstattung des Cozy Retreat</h2>
+        <ul class="room-features">
+          <li>Komfortables Doppelbett</li>
+          <li>Helles Zimmer mit Tageslicht</li>
+          <li>Warme Holzdetails</li>
+          <li>Tisch für 4 Personen</li>
+        </ul>
+        <h4>Zusätzlich sind alle Zimmer inklusive:</h4>
+        <ul class="room-features">
+      <li>Kontinentales Frühstück</li>
+            <li>WLAN</li>
+            <li>Vollständig ausgestattete Gemeinschaftsküche</li>
+            <li>Kurtaxen</li>
+            <li>Garderobe</li>
+          <li>Gästekarte Einsiedeln Tourismus</li>
+    </ul>
+      </div>
+    </section>
+
+    <section class="section" id="bewertungen">
+      <div class="container reviews-single-column">
+        <h2>Gästebewertungen</h2>
+        <p>Lesen Sie authentische Eindrücke früherer Gäste – die Bewertungen finden Sie auf unserer Airbnb-Seite.</p>
+        <p><a class="btn-primary" href="https://www.airbnb.ch/rooms/53539433?guests=1&adults=1&s=67&unique_share_id=489d4a3f-18a7-493c-903a-1367f516b50f" target="_blank">→ Bewertungen auf Airbnb</a></p>
+        <div class="airbnb-embed-wrapper">
+          <div class="airbnb-embed-frame" data-id="53539433" data-view="home" data-hide-price="true" style="width: 450px; height: 300px; margin: 0 auto;"><a href="https://www.airbnb.ch/rooms/53539433?guests=1&amp;adults=1&amp;s=66&amp;source=embed_widget">Auf Airbnb ansehen</a><a href="https://www.airbnb.ch/rooms/53539433?guests=1&amp;adults=1&amp;s=66&amp;source=embed_widget" rel="nofollow">Reihenhaus · Einsiedeln · ★5,0 · 1 Schlafzimmer · 1 Bett · 1,5 gemeinsame Bäder</a><script async="" src="https://www.airbnb.ch/embeddable/airbnb_jssdk"></script></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="calendar_section">
+      <div class="container availability-single-column">
+        <h2>Verfügbarkeit</h2>
+        <p>Frei ist eine Nacht ohne Eintrag. Steht im Kalender <strong>reserved</strong> oder <strong>not available</strong>, ist diese Nacht belegt; der Abreisetag ist wieder buchbar.</p>
+        <div class="calendar-wrapper">
+          <iframe src="https://calendar.google.com/calendar/embed?height=600&wkst=2&ctz=Europe%2FZurich&bgcolor=%23ffffff&title=Cozy%20Retreat&showPrint=0&showTabs=0&showCalendars=0&showTz=0&src=a2Q4dmJkMHN0bGJxcDBkN21rdmIxOXM3ZTh1czlvZ3BAaW1wb3J0LmNhbGVuZGFyLmdvb2dsZS5jb20&color=%23D50000" style="border:solid 1px #777" width="768" height="auto" frameborder="0" scrolling="no"></iframe>
+        </div>
+      </div>
+    </section>
+
+    <div class="center-btn">
+      <a href="/bnb_website/reservation.html" class="btn-primary btn-column">Reservation / Anfrage</a>
+    </div>
+  </main>
+
+  <!-- Dynamic Footer -->
+  <div id="footer"></div>
+  <script>
+    fetch('/bnb_website/footer.html')
+      .then(r=>r.text())
+      .then(html => {
+        const f = document.getElementById('footer');
+        f.innerHTML = html;
+        const yearSpan = f.querySelector('.js-current-year');
+        if(yearSpan) yearSpan.textContent = new Date().getFullYear();
+      });
+  </script>
+
+  <!-- Slideshow Autoplay & Navigation -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const slideshows = document.querySelectorAll('.slideshow');
+      slideshows.forEach(slideshow => {
+        const images = slideshow.querySelectorAll('img');
+        let index = 0;
+        const showImage = (i) => {
+          images.forEach(img => img.classList.remove('active'));
+          images[i].classList.add('active');
+        };
+        showImage(index);
+        let interval;
+        const startAutoSlide = () => {
+          clearInterval(interval);
+          interval = setInterval(() => {
+            index = (index + 1) % images.length;
+            showImage(index);
+          }, 5000);
+        };
+        startAutoSlide();
+        const left = slideshow.querySelector('.slide-arrow.left');
+        const right = slideshow.querySelector('.slide-arrow.right');
+        if(left) left.addEventListener('click', () => { index = (index - 1 + images.length) % images.length; showImage(index); startAutoSlide(); });
+        if(right) right.addEventListener('click', () => { index = (index + 1) % images.length; showImage(index); startAutoSlide(); });
+      });
+    });
+  </script>
+</body>
+</html>

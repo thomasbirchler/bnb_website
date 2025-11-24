@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>My BnB - Bed & Breakfast</title>
+  <script src="/bnb_website/js/lightbox.js" defer></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const slideshows = document.querySelectorAll(".slideshow");
+
+  slideshows.forEach(slideshow => {
+    let images = slideshow.querySelectorAll("img");
+    let index = 0;
+
+    const showImage = (i) => {
+      images.forEach(img => img.classList.remove("active"));
+      images[i].classList.add("active");
+    };
+
+    // Show first image
+    showImage(index);
+
+    let interval;
+
+    const startAutoSlide = () => {
+      // clear any existing interval first
+      clearInterval(interval);
+      interval = setInterval(() => {
+        index = (index + 1) % images.length;
+        showImage(index);
+      }, 8000);
+    };
+
+    // start autoplay initially
+    startAutoSlide();
+
+    const leftArrow = slideshow.querySelector(".slide-arrow.left");
+    const rightArrow = slideshow.querySelector(".slide-arrow.right");
+
+    leftArrow.addEventListener("click", () => {
+      index = (index - 1 + images.length) % images.length;
+      showImage(index);
+      startAutoSlide();   // restart autoplay after manual change
+    });
+
+    rightArrow.addEventListener("click", () => {
+      index = (index + 1) % images.length;
+      showImage(index);
+      startAutoSlide();   // restart autoplay after manual change
+    });
+  });
+});
+</script>
+
+
+
+<body>
+
+  <!-- Navigation -->
+  <div id="header"></div>
+
+  <script>
+  fetch("/bnb_website/header.html")
+    .then(response => response.text())
+    .then(data => {
+      const headerEl = document.getElementById("header");
+      headerEl.innerHTML = data;
+      let currentPage = window.location.pathname.split('/').pop();
+      if(!currentPage) currentPage = 'index.html';
+      headerEl.querySelectorAll('.nav-row a').forEach(a => {
+        const page = a.getAttribute('href').split('/').pop();
+        if(page === currentPage){ a.classList.add('active'); }
+      });
+    });
+  </script>
+
+
+  <!-- CONTENT OF WELCOME PAGE -->
+  <section class="welcome-hero">
+  <div class="container">
+    <h1>Willkommen im Bed & Breakfast Tulipan</h1>
+    <p class="welcome-subtitle">
+      Ein heimeliger Rückzugsort im Herzen des Klosterdorfes Einsiedeln.
+    </p>
+  </div>
+</section>
+
+  <section id="welcome" class="section">
+    <div class="container">
+
+      <h2>Geschichte des Hauses</h2>
+
+      <div class="container two-column">
+        <div class="col-text">
+          <p>Das Bed & Breakfast Tulipan befindet sich in einem liebevoll erhaltenen, <strong>denkmalgeschützten Gebäude</strong> aus dem Jahr 1877. 
+            Entworfen vom bekannten Architekten Steinauser, vereint das Haus bis heute den Charme seiner ursprünglichen Bauzeit mit dem Komfort der Gegenwart.</p>
+            <p>Über die Jahrzehnte hinweg diente das Haus unterschiedlichen Bewohnern und Familien als Zuhause - jede Generation hat ihre Spuren hinterlassen. 
+              Viele der <strong>originalen Elemente</strong> wie Holzarbeiten, Türen, Treppen und Raumstrukturen sind bis heute erhalten. 
+              Sie erzählen Geschichten von damals und verleihen dem Haus eine einzigartige Atmosphäre, die man sofort spürt, sobald man eintritt.</p>
+              <p>Der Tulipan ist mehr als nur eine Unterkunft - es ist <strong>ein Stück Einsiedler Geschichte</strong>. 
+                Ein Ort, der Tradition bewahrt, gleichzeitig aber offen und einladend ist. 
+                Wer hier übernachtet, erlebt ein Haus mit Charakter, Seele und einer warmen Gastfreundschaft, die tief verwurzelt ist.</p>
+              </div>
+              <div class="col-media">
+                <div class="room-summary-images slideshow slideshow-large">
+                  <img src="images/house_outside.jpeg" alt="Tulipan BnB Outside 1">
+                  <img src="images/staircase.jpg" alt="Staircase">
+                  <img src="images/dining_room.jpg" alt="Dinnning Room">
+                  <img src="images/kitchen.jpg" alt="Kitchen">
+                  <img src="images/languages.jpeg" alt="Languages">
+                  
+                  <!-- Navigation arrows -->
+                  <button class="slide-arrow left">&#10094;</button>
+                  <button class="slide-arrow right">&#10095;</button>
+                </div>
+              </div>
+            </div>
+          </div>
+  </section>
+
+  
+
+  <section class="section" id="zimmer-uebersicht">
+    <div class="container">
+  <h2>Wohnen im Tulipan - Ihre Optionen</h2>
+
+  <div class="container grid-3">
+
+    <!-- Room 1 -->
+    <div class="room-summary">
+      <h3>Grande Suite</h3>
+      <p>Unsere größte Suite mit viel Platz, einem gemütlichen Sitzbereich und privatem Badezimmer.</p>
+
+      <div class="room-summary-images slideshow">
+        <img src="images/gs_living1.jpg" alt="Grande Suite 1">
+        <img src="images/gs_living2.jpg" alt="Grande Suite 2">
+        <img src="images/gs_living3.jpg" alt="Grande Suite 3">
+        <img src="images/gs_bathroom.jpg" alt="Grande Suite Bathroom">
+        <img src="images/gs_bar.jpg" alt="Grande Suite Bar">
+        <img src="images/gs_water.jpg" alt="Grande Suite Water">
+
+        <!-- Navigation arrows -->
+        <button class="slide-arrow left">&#10094;</button>
+        <button class="slide-arrow right">&#10095;</button>
+      </div>
+
+
+      <div class="price-summary">
+        <p><strong>CHF 115.-</strong> / Nacht (2 Personen)</p>
+        <p><strong>CHF 100.-</strong> / Nacht (1 Person)</p>
+        <p class="cleaning">+ CHF 30.- Reinigung</p>
+      </div>
+      
+        <div class="center-btn">
+         <a class="btn-primary" href="/bnb_website/rooms/grande_suite.html">→ Mehr Infos</a>
+        </div>
+    </div>
+
+
+    <!-- Room 2 -->
+    <div class="room-summary">
+      <h3>Cozy Retreat</h3>
+      <p>Helles, warmes und charmantes Zimmer mit Holzdetails, großem Bett und gemütlicher Atmosphäre.</p>
+
+      <div class="room-summary-images slideshow">
+        <img src="images/cr_sleeping1.jpg" alt="Cozy Retreat 1">
+        <img src="images/cr_sleeping2.jpg" alt="Cozy Retreat 2">
+        <img src="images/cr_sleeping3.jpg" alt="Cozy Retreat 3">
+
+        <!-- Navigation arrows -->
+        <button class="slide-arrow left">&#10094;</button>
+        <button class="slide-arrow right">&#10095;</button>
+      </div>
+
+      <div class="price-summary">
+        <p><strong>CHF 95.-</strong> / Nacht (2 Personen)</p>
+        <p><strong>CHF 80.-</strong> / Nacht (1 Person)</p>
+        <p class="cleaning">+ CHF 30.- Reinigung</p>
+      </div>
+
+      <div class="center-btn">
+        <a class="btn-primary" href="/bnb_website/rooms/cozy_retreat.html">→ Mehr Infos</a>
+      </div>
+    </div>
+
+    <!-- Room 3 -->
+    <div class="room-summary">
+      <h3>Princess Room</h3>
+      <p>Charmantes Zimmer mit französischem Doppelbett, liebevollen Details und viel Tageslicht.</p>
+
+      <div class="room-summary-images slideshow">
+        <img src="images/pr_sleeping1.jpeg" alt="Princess Room 1">
+        <img src="images/pr_sleeping2.jpeg" alt="Princess Room 2">
+        <img src="images/pr_sleeping3.jpeg" alt="Princess Room 3">
+
+        <!-- Navigation arrows -->
+        <button class="slide-arrow left">&#10094;</button>
+        <button class="slide-arrow right">&#10095;</button>
+      </div>
+
+      <div class="price-summary">
+        <p><strong>CHF 95.-</strong> / Nacht (2 Personen)</p>
+        <p><strong>CHF 80.-</strong> / Nacht (1 Person)</p>
+        <p class="cleaning">+ CHF 30.- Reinigung</p>
+      </div>
+
+      <div class="center-btn">
+        <a class="btn-primary" href="/bnb_website/rooms/princess_room.html">→ Mehr Infos</a>
+      </div>
+    </div>
+
+
+    </div>
+
+  </div>
+</section>
+
+
+        <div class="center-btn" style="margin-bottom:50px;">
+          <a class="btn-primary btn-wide" href="/bnb_website/reservation.html">→ Direkt zur Reservation</a>
+        </div>
+
+
+
+
+
+  <!-- Dynamic Footer -->
+  <div id="footer"></div>
+  <script>
+    // Load shared footer
+    fetch("/bnb_website/footer.html")
+      .then(r => r.text())
+      .then(html => {
+        const footerEl = document.getElementById("footer");
+        footerEl.innerHTML = html;
+        // Inject current year after footer loads
+        const yearSpan = footerEl.querySelector('.js-current-year');
+        if (yearSpan) yearSpan.textContent = new Date().getFullYear();
+      });
+  </script>
+
+
+  
+
+</body>
+</html>
