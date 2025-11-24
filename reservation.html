@@ -127,42 +127,71 @@
       });
   </script>
 
-    // --- Form submission (mailto fallback) ---
-    document.getElementById('reservationForm').addEventListener('submit', function(e){
-      e.preventDefault();
-      const status = document.getElementById('formStatus');
-      const name = document.getElementById('name').value.trim();
-      const email = document.getElementById('email').value.trim();
-      const phone = document.getElementById('phone').value.trim();
-      const arrival = document.getElementById('arrival').value;
-      const departure = document.getElementById('departure').value;
-      const guests = document.getElementById('guests').value;
-      const room = document.getElementById('room').value;
-      const message = document.getElementById('message').value.trim();
+  <script>
+  // --- Form submission (mailto fallback) ---
+  document.getElementById('reservationForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    const status = document.getElementById('formStatus');
+    const name = document.getElementById('name').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const phone = document.getElementById('phone').value.trim();
+    const arrival = document.getElementById('arrival').value;
+    const departure = document.getElementById('departure').value;
+    const guests = document.getElementById('guests').value;
+    const room = document.getElementById('room').value;
+    const message = document.getElementById('message').value.trim();
 
-      // Basic validation
-      if(!name || !email || !arrival || !departure || !room || !guests){
-        status.textContent = 'Bitte alle Pflichtfelder ausfüllen.';
-        status.className = 'form-status form-error';
-        return;
-      }
-      if(departure <= arrival){
-        status.textContent = 'Abreisedatum muss nach Anreisedatum liegen.';
-        status.className = 'form-status form-error';
-        return;
-      }
+    // Basic validation
+    if(!name || !email || !arrival || !departure || !room || !guests){
+      status.textContent = 'Bitte alle Pflichtfelder ausfüllen.';
+      status.className = 'form-status form-error';
+      return;
+    }
+    if(departure <= arrival){
+      status.textContent = 'Abreisedatum muss nach Anreisedatum liegen.';
+      status.className = 'form-status form-error';
+      return;
+    }
 
-      // Build mailto
-      const subject = encodeURIComponent(`Anfrage: ${room} ${arrival} bis ${departure}`);
-      const body = encodeURIComponent(
-        `Name: ${name}\nE-Mail: ${email}\nTelefon: ${phone}\nZimmer: ${room}\nGäste: ${guests}\nAnreise: ${arrival}\nAbreise: ${departure}\nNachricht:\n${message}`
-      );
+    // Zimmer-Label für die Mail (schönere Bezeichnung als der technische Wert)
+    const roomLabels = {
+      grande_suite: 'Grande Suite',
+      cozy_retreat: 'Cozy Retreat',
+      princess_room: 'Princess Room'
+    };
+    const roomLabel = roomLabels[room] || room;
 
-      const mailtoUrl = `mailto:yvonne.birchler@bnb-tulipan.ch?subject=${subject}&body=${body}`;
-      window.location.href = mailtoUrl;
-      status.textContent = 'E-Mail wird vorbereitet. Falls kein Mail-Client öffnet, bitte manuell senden.';
-      status.className = 'form-status form-info';
-    });
-  </script>
+    // Betreff etwas freundlicher
+    const subject = encodeURIComponent(`Anfrage ${roomLabel} - ${arrival} bis ${departure}`);
+
+    // Mail-Text schön formatiert
+    let bodyText = `Guten Tag\n\n`;
+    bodyText += `Ich interessiere mich für eine Reservation im Bed & Breakfast Tulipan.\n\n`;
+    bodyText += `Details zur Anfrage:\n`;
+    bodyText += `- Zimmer: ${roomLabel}\n`;
+    bodyText += `- Anreise: ${arrival}\n`;
+    bodyText += `- Abreise: ${departure}\n`;
+    bodyText += `- Anzahl Gäste: ${guests}\n\n`;
+    bodyText += `Kontaktdaten:\n`;
+    bodyText += `- Name: ${name}\n`;
+    bodyText += `- E-Mail: ${email}\n`;
+    if (phone) {
+      bodyText += `- Telefon: ${phone}\n`;
+    }
+    bodyText += `\nZusätzliche Nachricht / Besonderheiten:\n`;
+    bodyText += message ? `${message}\n\n` : `(keine Angaben)\n\n`;
+    bodyText += `Herzliche Grüsse\n`;
+    bodyText += `${name}\n`;
+
+    const body = encodeURIComponent(bodyText);
+
+    const mailtoUrl = `mailto:yvonne.birchler@bnb-tulipan.ch?subject=${subject}&body=${body}`;
+    window.location.href = mailtoUrl;
+
+    status.textContent = 'E-Mail wird vorbereitet. Falls kein Mail-Client öffnet, bitte manuell senden.';
+    status.className = 'form-status form-info';
+  });
+</script>
+
 </body>
 </html>
