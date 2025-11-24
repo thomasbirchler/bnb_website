@@ -87,7 +87,6 @@
               <textarea id="message" name="message" rows="5" placeholder="Fragen, spezielle Wünsche, Uhrzeit für Check-in ..."></textarea>
             </div>
             <div class="form-actions">
-              <button type="button" class="btn-primary" id="checkAvailabilityBtn">Verfügbarkeit prüfen</button>
               <button type="submit" class="btn-primary">Anfrage senden</button>
             </div>
             <p class="form-note">Mit * gekennzeichnete Felder sind Pflichtfelder.</p>
@@ -98,8 +97,7 @@
         <!-- AVAILABILITY COLUMN -->
         <div class="col-media">
           <h2>Verfügbarkeit</h2>
-          <p>Nutzen Sie die Funktion "Verfügbarkeit prüfen" oder betrachten Sie unten die Kalender. Die Auswahl erfolgt nach der Nacht der Übernachtung.</p>
-          <div id="availabilityResult" class="availability-box"></div>
+          <p>Die folgenden Kalender zeigen belegte Zeiträume. Eine Nacht ist frei, wenn für diese Nacht kein Eintrag erscheint. Bei Fragen einfach kurz melden – wir bestätigen rasch.</p>
 
           <div class="calendar-embeds">
             <h3>The Grande Suite</h3>
@@ -128,145 +126,6 @@
         if(yearSpan) yearSpan.textContent = new Date().getFullYear();
       });
   </script>
-
-  <script>
-    // --- Availability & Form Logic (ICS based, no API key needed) ---
-    // Provide PUBLIC ICS feed URLs for each room calendar.
-    // How to get ICS URL (Google Calendar): Einstellungen -> Kalender -> "Kalender integrieren" -> Öffentliche Adresse im iCal-Format.
-    const roomIcsMap = {
-      grande_suite: 'https://calendar.google.com/calendar/ical/dp8puqa6s07n332td88uneistktvnudq%40import.calendar.google.com/public/basic.ics',
-      cozy_retreat: 'https://calendar.google.com/calendar/ical/kd8vbd0stlbqp0d7mkvb19s7e8us9ogp%40import.calendar.google.com/public/basic.ics',
-      princess_room: 'https://calendar.google.com/calendar/ical/4u0b1ujcl0u9r06osqtcd146g0ns4l17%40import.calendar.google.com/public/basic.ics'
-    };
-
-    // Simple cache to avoid refetching ICS repeatedly in one session.
-    const icsCache = {}; // { roomKey: { fetchedAt: Date, text: string, events: [] } }
-    const CACHE_TTL_MINUTES = 30;
-
-    function parseICS(icsText){
-      // Very lightweight ICS parser focusing on DTSTART / DTEND / SUMMARY lines
-      const lines = icsText.split(/\r?\n/);
-      const events = [];
-      let current = null;
-      lines.forEach(line => {
-        if(line === 'BEGIN:VEVENT') { current = {}; }
-        else if(line === 'END:VEVENT') {
-          if(current && current.dtstart && current.dtend) {
-            events.push(current); }
-          current = null;
-        } else if(current){
-          if(line.startsWith('DTSTART')){
-            const value = line.split(':').pop().trim();
-            current.dtstart = parseIcsDate(value);
-          } else if(line.startsWith('DTEND')){
-            const value = line.split(':').pop().trim();
-            current.dtend = parseIcsDate(value);
-          } else if(line.startsWith('SUMMARY')){
-            current.summary = line.split(':').slice(1).join(':').trim();
-          }
-        }
-      });
-      return events;
-    }
-
-    function parseIcsDate(raw){
-      // Handles YYYYMMDD or YYYYMMDDTHHMMSSZ
-      if(/^[0-9]{8}$/.test(raw)){
-        // Treat all-day events: start of day local
-        const year = raw.slice(0,4); const month = raw.slice(4,6); const day = raw.slice(6,8);
-        return new Date(`${year}-${month}-${day}T00:00:00`);
-      }
-      // date-time variant
-      const match = raw.match(/([0-9]{4})([0-9]{2})([0-9]{2})T([0-9]{2})([0-9]{2})([0-9]{2})Z?/);
-      if(match){
-        const [_, y,m,d,hh,mm,ss] = match;
-        return new Date(`${y}-${m}-${d}T${hh}:${mm}:${ss}Z`);
-      }
-      // fallback
-      return new Date(raw);
-    }
-
-    function isCacheValid(entry){
-      if(!entry) return false;
-      const ageMin = (Date.now() - entry.fetchedAt)/60000;
-      return ageMin < CACHE_TTL_MINUTES;
-    }
-
-    async function getRoomEvents(room){
-      const cacheEntry = icsCache[room];
-      if(isCacheValid(cacheEntry)) return cacheEntry.events;
-      const icsUrl = roomIcsMap[room];
-      if(!icsUrl) throw new Error('Keine ICS URL hinterlegt');
-      const resp = await fetch(icsUrl);
-      if(!resp.ok) throw new Error('ICS Abruf fehlgeschlagen ('+resp.status+')');
-      const text = await resp.text();
-      const events = parseICS(text);
-      icsCache[room] = { fetchedAt: Date.now(), text, events };
-      return events;
-    }
-
-    function overlaps(arrivalDate, departureDate, eventStart, eventEnd){
-      // Consider nights: event overlaps if it touches any portion of [arrival, departure)
-      // Many all-day events treat DTEND as exclusive; we'll keep logic inclusive of start, exclusive of end.
-      return eventStart < departureDate && eventEnd > arrivalDate;
-    }
-
-    async function checkAvailability(){
-      const arrivalEl = document.getElementById('arrival');
-      const departureEl = document.getElementById('departure');
-      const roomEl = document.getElementById('room');
-      const resultBox = document.getElementById('availabilityResult');
-
-      resultBox.textContent = '';
-
-      const arrival = arrivalEl.value;
-      const departure = departureEl.value;
-      const room = roomEl.value;
-
-      if(!arrival || !departure || !room){
-        resultBox.textContent = 'Bitte zuerst Zimmer sowie An- und Abreisedatum wählen.';
-        resultBox.className = 'availability-box availability-error';
-        return;
-      }
-      if(departure <= arrival){
-        resultBox.textContent = 'Abreisedatum muss nach dem Anreisedatum liegen.';
-        resultBox.className = 'availability-box availability-error';
-        return;
-      }
-
-      const icsUrl = roomIcsMap[room];
-      if(!icsUrl){
-        resultBox.textContent = 'Keine ICS URL für dieses Zimmer hinterlegt.';
-        resultBox.className = 'availability-box availability-error';
-        return;
-      }
-      resultBox.innerHTML = '<p>Prüfe Verfügbarkeit (ICS)...</p>';
-      resultBox.className = 'availability-box availability-loading';
-
-      try {
-        const arrivalDate = new Date(arrival + 'T00:00:00');
-        const departureDate = new Date(departure + 'T00:00:00'); // exclusive end
-        const events = await getRoomEvents(room);
-        const overlapping = events.filter(ev => overlaps(arrivalDate, departureDate, ev.dtstart, ev.dtend));
-        if(overlapping.length === 0){
-          resultBox.innerHTML = '<p>Zimmer ist im gewählten Zeitraum frei.</p>';
-          resultBox.className = 'availability-box availability-free';
-        } else {
-          const listHtml = overlapping.map(ev => {
-            const fmtStart = ev.dtstart.toISOString().split('T')[0];
-            const fmtEnd = ev.dtend.toISOString().split('T')[0];
-            return `<li>${fmtStart} – ${fmtEnd} : ${ev.summary || 'Belegt'}</li>`;
-          }).join('');
-          resultBox.innerHTML = `<p>Zimmer ist belegt oder teilweise belegt:</p><ul>${listHtml}</ul>`;
-          resultBox.className = 'availability-box availability-busy';
-        }
-      } catch(err){
-        resultBox.textContent = 'Fehler bei der ICS Prüfung: ' + err.message;
-        resultBox.className = 'availability-box availability-error';
-      }
-    }
-
-    document.getElementById('checkAvailabilityBtn').addEventListener('click', checkAvailability);
 
     // --- Form submission (mailto fallback) ---
     document.getElementById('reservationForm').addEventListener('submit', function(e){
