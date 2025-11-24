@@ -6,6 +6,7 @@
   <title>Grande Suite - Bed & Breakfast Tulipan</title>
   <script src="/bnb_website/js/lightbox.js" defer></script>
   <link rel="stylesheet" href="/bnb_website/css/styles.css">
+  <script src="/bnb_website/js/slideshow.js" defer></script>
 </head>
 <body>
 
@@ -188,65 +189,11 @@ fetch("/bnb_website/header.html")
         const yearSpan = footerEl.querySelector('.js-current-year');
         if (yearSpan) yearSpan.textContent = new Date().getFullYear();
       });
-      
-              // Hide logo after scrolling
-              const siteHeader = headerEl.querySelector('.site-header');
-              const updateLogoVisibility = () => {
-                if(window.scrollY > 60) siteHeader.classList.add('hide-logo');
-                else siteHeader.classList.remove('hide-logo');
-              };
-              updateLogoVisibility();
-              window.addEventListener('scroll', updateLogoVisibility, { passive: true });
   </script>
 
   
 
-  <!-- Script: Slideshow mit Pfeilen + Autoplay (Lightbox handled by separate script) -->
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const slideshows = document.querySelectorAll(".slideshow");
-
-      slideshows.forEach(slideshow => {
-        let images = slideshow.querySelectorAll("img");
-        let index = 0;
-
-        const showImage = (i) => {
-          images.forEach(img => img.classList.remove("active"));
-          images[i].classList.add("active");
-        };
-
-        // Erste Folie anzeigen
-        showImage(index);
-
-        let interval;
-
-        const startAutoSlide = () => {
-          clearInterval(interval);
-          interval = setInterval(() => {
-            index = (index + 1) % images.length;
-            showImage(index);
-          }, 4000);
-        };
-
-        startAutoSlide();
-
-        const leftArrow = slideshow.querySelector(".slide-arrow.left");
-        const rightArrow = slideshow.querySelector(".slide-arrow.right");
-
-        leftArrow.addEventListener("click", () => {
-          index = (index - 1 + images.length) % images.length;
-          showImage(index);
-          startAutoSlide();
-        });
-
-        rightArrow.addEventListener("click", () => {
-          index = (index + 1) % images.length;
-          showImage(index);
-          startAutoSlide();
-        });
-      });
-    });
-  </script>
+  <!-- Slideshow handled globally by slideshow.js -->
 
 </body>
 </html>

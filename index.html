@@ -3,89 +3,18 @@
 <head>
   <meta charset="UTF-8" />
   <title>My BnB - Bed & Breakfast</title>
-  <script src="/bnb_website/js/lightbox.js" defer></script>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="stylesheet" href="css/styles.css" />
+  <script src="/bnb_website/js/lightbox.js" defer></script>
+  <script src="/bnb_website/js/header-loader.js" defer></script>
+  <script src="/bnb_website/js/slideshow.js" defer></script>
 </head>
-
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-  const slideshows = document.querySelectorAll(".slideshow");
-
-  slideshows.forEach(slideshow => {
-    let images = slideshow.querySelectorAll("img");
-    let index = 0;
-
-    const showImage = (i) => {
-      images.forEach(img => img.classList.remove("active"));
-      images[i].classList.add("active");
-    };
-
-    // Show first image
-    showImage(index);
-
-    let interval;
-
-    const startAutoSlide = () => {
-      // clear any existing interval first
-      clearInterval(interval);
-      interval = setInterval(() => {
-        index = (index + 1) % images.length;
-        showImage(index);
-      }, 8000);
-    };
-
-    // start autoplay initially
-    startAutoSlide();
-
-    const leftArrow = slideshow.querySelector(".slide-arrow.left");
-    const rightArrow = slideshow.querySelector(".slide-arrow.right");
-
-    leftArrow.addEventListener("click", () => {
-      index = (index - 1 + images.length) % images.length;
-      showImage(index);
-      startAutoSlide();   // restart autoplay after manual change
-    });
-
-    rightArrow.addEventListener("click", () => {
-      index = (index + 1) % images.length;
-      showImage(index);
-      startAutoSlide();   // restart autoplay after manual change
-    });
-  });
-});
-</script>
-
 
 
 <body>
 
   <!-- Navigation -->
   <div id="header"></div>
-
-  <script>
-  fetch("/bnb_website/header.html")
-    .then(response => response.text())
-    .then(data => {
-      const headerEl = document.getElementById("header");
-      headerEl.innerHTML = data;
-      let currentPage = window.location.pathname.split('/').pop();
-      if(!currentPage) currentPage = 'index.html';
-      headerEl.querySelectorAll('.nav-row a').forEach(a => {
-        const page = a.getAttribute('href').split('/').pop();
-        if(page === currentPage){ a.classList.add('active'); }
-      });
-
-      // Hide logo after scrolling down a bit
-      const siteHeader = headerEl.querySelector('.site-header');
-      const updateLogoVisibility = () => {
-        if(window.scrollY > 60) siteHeader.classList.add('hide-logo');
-        else siteHeader.classList.remove('hide-logo');
-      };
-      updateLogoVisibility();
-      window.addEventListener('scroll', updateLogoVisibility, { passive: true });
-    });
-  </script>
 
 
   <!-- CONTENT OF WELCOME PAGE -->

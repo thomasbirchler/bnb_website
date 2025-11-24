@@ -6,6 +6,7 @@
   <title>Princess Room - Bed & Breakfast Tulipan</title>
   <script src="/bnb_website/js/lightbox.js" defer></script>
   <link rel="stylesheet" href="/bnb_website/css/styles.css">
+  <script src="/bnb_website/js/slideshow.js" defer></script>
 </head>
 <body>
   <div id="header"></div>
@@ -150,28 +151,6 @@
       });
   </script>
 
-  <!-- Slideshow Autoplay -->
-  <script>
-    // Slideshow logic (logo hide already handled in header fetch script)
-    document.addEventListener('DOMContentLoaded', () => {
-      const slideshows = document.querySelectorAll('.slideshow');
-      slideshows.forEach(slideshow => {
-        const images = slideshow.querySelectorAll('img');
-        let index = 0;
-        const showImage = (i) => { images.forEach(img => img.classList.remove('active')); images[i].classList.add('active'); };
-        showImage(index);
-        let interval;
-        const startAutoSlide = () => {
-          clearInterval(interval);
-          interval = setInterval(() => { index = (index + 1) % images.length; showImage(index); }, 5000);
-        };
-        startAutoSlide();
-        const left = slideshow.querySelector('.slide-arrow.left');
-        const right = slideshow.querySelector('.slide-arrow.right');
-        if(left) left.addEventListener('click', () => { index = (index - 1 + images.length) % images.length; showImage(index); startAutoSlide(); });
-        if(right) right.addEventListener('click', () => { index = (index + 1) % images.length; showImage(index); startAutoSlide(); });
-      });
-    });
-  </script>
+  <!-- Slideshow handled globally by slideshow.js -->
 </body>
 </html>
