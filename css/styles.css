@@ -111,7 +111,8 @@ body {
 
 /* Zwei Spalten nebeneinander */
 .two-column {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* two equal columns */
   gap: 40px;
   align-items: flex-start;
 }
@@ -138,7 +139,8 @@ body {
 /* Mobile: untereinander statt nebeneinander */
 @media (max-width: 768px) {
   .two-column {
-    flex-direction: column;
+    grid-template-columns: 1fr;
+    gap: 25px;
   }
   /* Bigger slideshow only on the welcome section */
   .slideshow-large {
