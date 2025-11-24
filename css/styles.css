@@ -182,6 +182,9 @@ body {
   gap: 12px;
 }
 
+/* When a slideshow is applied, avoid flex layout to prevent mobile Safari painting issues with absolutely positioned children */
+.room-summary-images.slideshow { display: block; }
+
 .room-summary-images img {
   width: 100%;
   border-radius: 8px;
@@ -236,6 +239,9 @@ body {
   opacity: 0;
   transition: opacity 1s ease-in-out;
 }
+
+/* Fallback: ensure first image is visible before JS adds .active (prevents blank area on slow mobile load or script error) */
+.slideshow img:first-child { opacity: 1; }
 
 .airbnb-embed-wrapper {
   display: flex;
@@ -304,6 +310,9 @@ body {
   transition: opacity 1s ease-in-out;
   pointer-events: none;
 }
+
+/* Fallback duplicated after consolidation to reinforce visibility irrespective of earlier declarations */
+.slideshow img:first-child { opacity: 1; }
 
 /* VISIBLE IMAGE */
 .slideshow img.active {
