@@ -75,6 +75,15 @@ document.addEventListener("DOMContentLoaded", () => {
         const page = a.getAttribute('href').split('/').pop();
         if(page === currentPage){ a.classList.add('active'); }
       });
+
+      // Hide logo after scrolling down a bit
+      const siteHeader = headerEl.querySelector('.site-header');
+      const updateLogoVisibility = () => {
+        if(window.scrollY > 60) siteHeader.classList.add('hide-logo');
+        else siteHeader.classList.remove('hide-logo');
+      };
+      updateLogoVisibility();
+      window.addEventListener('scroll', updateLogoVisibility, { passive: true });
     });
   </script>
 
