@@ -80,9 +80,11 @@
 
           <!-- Bildspalte mit Slideshow -->
           <div class="col-media">
-            <div class="room-summary-images slideshow">
-              <img src="/bnb_website/images/cr_sleeping1.jpg" alt="Cozy Retreat - Zimmeransicht 1">
-              <img src="/bnb_website/images/cr_sleeping2.jpg" alt="Cozy Retreat - Zimmeransicht 2">
+            <div class="room-summary-images slideshow slideshow-large">
+              <img src="../images/cr_sleeping1.jpg" alt="Cozy Retreat - Zimmeransicht 1">
+              <img src="../images/cr_sleeping2.jpg" alt="Cozy Retreat - Zimmeransicht 2">
+              <img src="../images/cr_sleeping3.jpg" alt="Cozy Retreat - Zimmeransicht 3">
+              
               <!-- Navigation arrows -->
               <button class="slide-arrow left">&#10094;</button>
               <button class="slide-arrow right">&#10095;</button>
@@ -154,15 +156,7 @@
 
   <!-- Slideshow Autoplay & Navigation -->
   <script>
-
-        // Hide logo on scroll
-        const siteHeader = h.querySelector('.site-header');
-        const updateLogoVisibility = () => {
-          if(window.scrollY > 60) siteHeader.classList.add('hide-logo');
-          else siteHeader.classList.remove('hide-logo');
-        };
-        updateLogoVisibility();
-        window.addEventListener('scroll', updateLogoVisibility, { passive: true });
+    // Slideshow logic (logo hide already handled in header fetch script)
     document.addEventListener('DOMContentLoaded', () => {
       const slideshows = document.querySelectorAll('.slideshow');
       slideshows.forEach(slideshow => {

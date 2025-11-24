@@ -285,6 +285,9 @@ body {
 .slideshow img.active {
   opacity: 1;
 }
+.slideshow img:first-child { /* Fallback: ensure first image visible if JS fails */
+  opacity: 1;
+}
 
 
 

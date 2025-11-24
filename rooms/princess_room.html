@@ -76,12 +76,12 @@
           </div>
           <!-- Slideshow -->
           <div class="col-media">
-            <div class="room-summary-images slideshow">
-              <img src="/bnb_website/images/pr_sleeping1.jpeg" alt="Princess Room - Ansicht 1">
-              <img src="/bnb_website/images/pr_sleeping2.jpeg" alt="Princess Room - Ansicht 2">
-              <img src="/bnb_website/images/pr_sleeping3.jpeg" alt="Princess Room - Ansicht 3">
-              <img src="/bnb_website/images/bathroom_shared.jpg" alt="Bathroom 1 Ansicht">
-              <img src="/bnb_website/images/bathroom_shared2.jpg" alt="Bathroom 2 Ansicht">
+            <div class="room-summary-images slideshow slideshow-large">
+              <img src="../images/pr_sleeping1.jpeg" alt="Princess Room - Ansicht 1">
+              <img src="../images/pr_sleeping2.jpeg" alt="Princess Room - Ansicht 2">
+              <img src="../images/pr_sleeping3.jpeg" alt="Princess Room - Ansicht 3">
+              <img src="../images/bathroom_shared.jpg" alt="Bathroom 1 Ansicht">
+              <img src="../images/bathroom_shared2.jpg" alt="Bathroom 2 Ansicht">
 
               <button class="slide-arrow left">&#10094;</button>
               <button class="slide-arrow right">&#10095;</button>
@@ -152,15 +152,7 @@
 
   <!-- Slideshow Autoplay -->
   <script>
-
-        // Hide logo on scroll
-        const siteHeader = h.querySelector('.site-header');
-        const updateLogoVisibility = () => {
-          if(window.scrollY > 60) siteHeader.classList.add('hide-logo');
-          else siteHeader.classList.remove('hide-logo');
-        };
-        updateLogoVisibility();
-        window.addEventListener('scroll', updateLogoVisibility, { passive: true });
+    // Slideshow logic (logo hide already handled in header fetch script)
     document.addEventListener('DOMContentLoaded', () => {
       const slideshows = document.querySelectorAll('.slideshow');
       slideshows.forEach(slideshow => {
