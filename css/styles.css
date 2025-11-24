@@ -775,3 +775,14 @@ body {
 
 .calendar-embeds h3 { margin-top:30px; margin-bottom:10px; font-size:1.1rem; }
 .calendar-note { font-size:0.7rem; color:#777; margin-top:12px; }
+
+/* ===================== SLIDESHOW FINAL CONSOLIDATED OVERRIDES ===================== */
+/* Ensure first image always visible as fallback (mobile JS race conditions) */
+.slideshow img:first-child { opacity: 1; }
+/* Guarantee large variant height across breakpoints (remove reliance on !important earlier) */
+.slideshow-large { height: 350px; }
+.slideshow-large img { height: 350px; }
+@media (max-width: 600px){
+  .slideshow-large { height: 320px; }
+  .slideshow-large img { height: 320px; }
+}
