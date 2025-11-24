@@ -387,6 +387,12 @@ body {
   background: #972323;
 }
 
+/* Slight enlargement variant for reservation submit */
+.btn-primary.btn-large {
+  padding: 14px 26px;
+  font-size: 1.05rem;
+}
+
 
 
 .calendar-wrapper {
