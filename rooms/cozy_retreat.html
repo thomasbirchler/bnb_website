@@ -18,22 +18,24 @@
       .then(html => {
         const h = document.getElementById('header');
         h.innerHTML = html;
-        // Mark active link
         const currentPage = 'cozy_retreat.html';
         document.querySelectorAll('.nav-row a').forEach(a => {
           const page = a.getAttribute('href').split('/').pop();
-          if(page === currentPage){ a.classList.add('active'); }
+          if(page === currentPage) a.classList.add('active');
         });
-
-        // Hide logo on scroll
         const siteHeader = h.querySelector('.site-header');
-        const updateLogoVisibility = () => {
-          if(!siteHeader) return;
-          if(window.scrollY > 60) siteHeader.classList.add('hide-logo');
-          else siteHeader.classList.remove('hide-logo');
+        if(!siteHeader) return;
+        let lastScrollY = window.scrollY;
+        const threshold = 80;
+        const onScroll = () => {
+          const current = window.scrollY;
+          if(current > lastScrollY && current > threshold) siteHeader.classList.add('header-hidden');
+          else siteHeader.classList.remove('header-hidden');
+          if(current === 0) siteHeader.classList.remove('hide-logo'); else siteHeader.classList.add('hide-logo');
+          lastScrollY = current;
         };
-        updateLogoVisibility();
-        window.addEventListener('scroll', updateLogoVisibility, { passive: true });
+        window.addEventListener('scroll', onScroll, { passive:true });
+        onScroll();
       });
   </script>
 

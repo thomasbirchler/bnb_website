@@ -45,26 +45,30 @@
   <div id="header"></div>
 
     <script>
+    // Use header-loader.js behavior if available; fallback minimal loader with auto-hide
     fetch("/bnb_website/header.html")
-      .then(response => response.text())
-      .then(data => {
-        const headerEl = document.getElementById("header");
-        headerEl.innerHTML = data;
-        let currentPage = window.location.pathname.split('/').pop();
-        if(!currentPage) currentPage = 'index.html';
+      .then(r => r.text())
+      .then(html => {
+        const headerEl = document.getElementById('header');
+        headerEl.innerHTML = html;
+        let currentPage = window.location.pathname.split('/').pop() || 'index.html';
         headerEl.querySelectorAll('.nav-row a').forEach(a => {
           const page = a.getAttribute('href').split('/').pop();
-          if(page === currentPage){ a.classList.add('active'); }
+          if(page === currentPage) a.classList.add('active');
         });
-
-        // Hide logo after scrolling
         const siteHeader = headerEl.querySelector('.site-header');
-        const updateLogoVisibility = () => {
-          if(window.scrollY > 60) siteHeader.classList.add('hide-logo');
-          else siteHeader.classList.remove('hide-logo');
+        if(!siteHeader) return;
+        let lastScrollY = window.scrollY;
+        const threshold = 80;
+        const onScroll = () => {
+          const current = window.scrollY;
+          if(current > lastScrollY && current > threshold) siteHeader.classList.add('header-hidden');
+          else siteHeader.classList.remove('header-hidden');
+          if(current === 0) siteHeader.classList.remove('hide-logo'); else siteHeader.classList.add('hide-logo');
+          lastScrollY = current;
         };
-        updateLogoVisibility();
-        window.addEventListener('scroll', updateLogoVisibility, { passive: true });
+        window.addEventListener('scroll', onScroll, { passive:true });
+        onScroll();
       });
     </script>
 
