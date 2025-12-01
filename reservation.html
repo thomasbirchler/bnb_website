@@ -5,12 +5,12 @@
   <title>Reservation / Anfrage - Bed & Breakfast Tulipan</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description" content="Kontakt und Reservierungsanfrage für das Bed & Breakfast Tulipan in Einsiedeln." />
-  <link rel="stylesheet" href="/bnb_website/css/styles.css" />
+  <link rel="stylesheet" href="css/styles.css" />
 </head>
 <body>
   <div id="header"></div>
   <script>
-    fetch('/bnb_website/header.html')
+    fetch('header.html')
       .then(r=>r.text())
       .then(html => {
         const h = document.getElementById('header');
@@ -100,7 +100,7 @@
         <!-- AVAILABILITY COLUMN -->
         <div class="col-media">
           <h2>Verfügbarkeit</h2>
-          <p>Die folgenden Kalender zeigen belegte Zeiträume. Eine Nacht ist frei, wenn für diese Nacht kein Eintrag erscheint. Details zur Interpretation finden Sie unter <a href="/bnb_website/informationen.html#wie-verfuegbarkeit">Wie lese ich die Verfügbarkeit?</a>. Bei Fragen einfach kurz melden – wir bestätigen rasch.</p>
+          <p>Die folgenden Kalender zeigen belegte Zeiträume. Eine Nacht ist frei, wenn für diese Nacht kein Eintrag erscheint. Details zur Interpretation finden Sie unter <a href="informationen.html#wie-verfuegbarkeit">Wie lese ich die Verfügbarkeit?</a>. Bei Fragen einfach kurz melden – wir bestätigen rasch.</p>
 
           <div class="calendar-embeds">
             <h3>The Grande Suite</h3>
@@ -120,7 +120,7 @@
 
   <div id="footer"></div>
   <script>
-    fetch('/bnb_website/footer.html')
+    fetch('footer.html')
       .then(r=>r.text())
       .then(html => {
         const f = document.getElementById('footer');

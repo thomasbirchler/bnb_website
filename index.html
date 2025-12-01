@@ -5,9 +5,9 @@
   <title>My BnB - Bed & Breakfast</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="stylesheet" href="css/styles.css" />
-  <script src="/bnb_website/js/lightbox.js" defer></script>
-  <script src="/bnb_website/js/header-loader.js" defer></script>
-  <script src="/bnb_website/js/slideshow.js" defer></script>
+  <script src="js/lightbox.js" defer></script>
+  <script src="js/header-loader.js" defer></script>
+  <script src="js/slideshow.js" defer></script>
 </head>
 
 
@@ -94,7 +94,7 @@
       </div>
       
         <div class="center-btn">
-         <a class="btn-primary" href="/bnb_website/rooms/grande_suite.html">→ Mehr Infos</a>
+         <a class="btn-primary" href="rooms/grande_suite.html">→ Mehr Infos</a>
         </div>
     </div>
 
@@ -121,7 +121,7 @@
       </div>
 
       <div class="center-btn">
-        <a class="btn-primary" href="/bnb_website/rooms/cozy_retreat.html">→ Mehr Infos</a>
+        <a class="btn-primary" href="rooms/cozy_retreat.html">→ Mehr Infos</a>
       </div>
     </div>
 
@@ -147,7 +147,7 @@
       </div>
 
       <div class="center-btn">
-        <a class="btn-primary" href="/bnb_website/rooms/princess_room.html">→ Mehr Infos</a>
+        <a class="btn-primary" href="rooms/princess_room.html">→ Mehr Infos</a>
       </div>
     </div>
 
@@ -159,7 +159,7 @@
 
 
         <div class="center-btn" style="margin-bottom:50px;">
-          <a class="btn-primary btn-wide" href="/bnb_website/reservation.html">→ Direkt zur Reservation</a>
+          <a class="btn-primary btn-wide" href="reservation.html">→ Direkt zur Reservation</a>
         </div>
 
 
@@ -170,7 +170,7 @@
   <div id="footer"></div>
   <script>
     // Load shared footer
-    fetch("/bnb_website/footer.html")
+    fetch("footer.html")
       .then(r => r.text())
       .then(html => {
         const footerEl = document.getElementById("footer");

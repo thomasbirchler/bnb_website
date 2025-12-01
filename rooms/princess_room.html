@@ -4,14 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Princess Room - Bed & Breakfast Tulipan</title>
-  <script src="/bnb_website/js/lightbox.js" defer></script>
-  <link rel="stylesheet" href="/bnb_website/css/styles.css">
-  <script src="/bnb_website/js/slideshow.js" defer></script>
+  <script src="js/lightbox.js" defer></script>
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="js/slideshow.js" defer></script>
 </head>
 <body>
   <div id="header"></div>
   <script>
-    fetch('/bnb_website/header.html')
+    fetch('header.html')
       .then(r=>r.text())
       .then(html => {
         const h = document.getElementById('header');
@@ -75,7 +75,7 @@
               <p class="cleaning">+ CHF 30.- Reinigung</p>
             </div>
             <div class="center-btn">
-              <a href="/bnb_website/reservation.html" class="btn-primary btn-column">Reservation / Anfrage</a>
+              <a href="reservation.html" class="btn-primary btn-column">Reservation / Anfrage</a>
             </div>
           </div>
           <!-- Slideshow -->
@@ -138,13 +138,13 @@
     </section>
 
     <div class="center-btn">
-      <a href="/bnb_website/reservation.html" class="btn-primary btn-column">Reservation / Anfrage</a>
+      <a href="reservation.html" class="btn-primary btn-column">Reservation / Anfrage</a>
     </div>
   </main>
 
   <div id="footer"></div>
   <script>
-    fetch('/bnb_website/footer.html')
+    fetch('footer.html')
       .then(r=>r.text())
       .then(html => {
         const f = document.getElementById('footer');

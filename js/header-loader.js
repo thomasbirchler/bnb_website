@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-  fetch("/bnb_website/header.html")
+  fetch("header.html")
     .then(r => r.text())
     .then(html => {
       const headerWrapper = document.getElementById("header");
